@@ -37,7 +37,6 @@ In the same index.html file, create the mediaManager and button even listeners.
 		
 		stop.addEventListener('click', () => {
 			mediaManager.stopRecording();
-			//uploadProg.style.display = "none";
 			record.disabled = false;
 			stop.disabled = true;
 		});
