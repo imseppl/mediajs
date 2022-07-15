@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Web dictaphone</title>
+	<script src="media.js"></script>
+  </head>
+  <body>
+	<button class="record">Record</button>
+	<button class="stop">Stop</button>
+	<canvas class="visualizer" height="60px"></canvas>
+	<progress class="prog"></progress>
+	<script>
+		var record = document.querySelector('.record');
+		var stop = document.querySelector('.stop');
+		var audioVis = document.querySelector('.visualizer');
+		var uploadProg = document.querySelector('.prog');
+		audioVis.style.display = "none";
+		stop.disabled = true;
+		//var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", audioVis, uploadProg);
+		var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", null, null);
+		mediaManager.setVisualizerCanvas(audioVis);
+		mediaManager.setProgress(uploadProg);
+		
+		record.addEventListener('click', () => {
+			mediaManager.startRecording();
+			record.disabled = true;
+			stop.disabled = false;
+		});
+		
+		stop.addEventListener('click', () => {
+			mediaManager.stopRecording();
+			record.disabled = false;
+			stop.disabled = true;
+		});
+	
+		window.onresize = function() {
+			//may need to change the canvas width
+			//canvas.width = mainSection.offsetWidth;
+		}
+
+		window.onresize();
+	</script>
+
+  </body>
+</html>
