@@ -18,28 +18,28 @@ In your index.html file, create your recording buttons including the audio feedb
 In the same index.html file, create the mediaManager and button even listeners.
 
 ```
-		var record = document.querySelector('.record');
-		var stop = document.querySelector('.stop');
-		var audioVis = document.querySelector('.visualizer');
-		var uploadProg = document.querySelector('.prog');
-		audioVis.style.display = "none";
+	var record = document.querySelector('.record');
+	var stop = document.querySelector('.stop');
+	var audioVis = document.querySelector('.visualizer');
+	var uploadProg = document.querySelector('.prog');
+	audioVis.style.display = "none";
+	stop.disabled = true;
+	//var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", audioVis, uploadProg);
+	var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", null, null);
+	mediaManager.setVisualizerCanvas(audioVis);
+	mediaManager.setProgress(uploadProg);
+		
+	record.addEventListener('click', () => {
+		mediaManager.startRecording();
+		record.disabled = true;
+		stop.disabled = false;
+	});
+		
+	stop.addEventListener('click', () => {
+		mediaManager.stopRecording();
+		record.disabled = false;
 		stop.disabled = true;
-		//var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", audioVis, uploadProg);
-		var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", null, null);
-		mediaManager.setVisualizerCanvas(audioVis);
-		mediaManager.setProgress(uploadProg);
-		
-		record.addEventListener('click', () => {
-			mediaManager.startRecording();
-			record.disabled = true;
-			stop.disabled = false;
-		});
-		
-		stop.addEventListener('click', () => {
-			mediaManager.stopRecording();
-			record.disabled = false;
-			stop.disabled = true;
-		});
+	});
 ```
 
 The MediaManager constructor takes the following arguments:
