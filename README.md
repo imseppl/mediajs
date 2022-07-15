@@ -1,5 +1,5 @@
 # mediajs
-Record audio using your web browser and save the ogg files to the server.
+Record audio using your web browser and save the .ogg files to the server.
 
 Recorder.js is no longer maintained by the creator and web browsers have implemented built-in audio and video recording. I created mediajs to record audio into ogg format and send the file blob to a nodejs (or other) server.
 
