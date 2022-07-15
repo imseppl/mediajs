@@ -44,7 +44,9 @@ In the same index.html file, create the mediaManager and button even listeners.
 
 The MediaManager constructor takes the following arguments:
 
+```
 MediaManager(FileName, UploadLocation, FileDataName, AudioVisual, UploadProg);
+```
 
 FileName: the name of the .ogg file
 example: "filename.ogg"
