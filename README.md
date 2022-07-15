@@ -1,9 +1,9 @@
 # mediajs
 Save audio files to a server using built in web browser functionality
 
-Recorder.js is no maintained by the creator and web browsers have implemented built-in audio and video recording. I created mediajs as a simple way to record audio into ogg format and send the file blob to a nodejs (or other) server.
+Recorder.js is no longer maintained by the creator and web browsers have implemented built-in audio and video recording. I created mediajs to record audio into ogg format and send the file blob to a nodejs (or other) server.
 
-Include the media.js file into your client HTML page and looks at the index.html file for how to record audio from your web browser to send to a server.
+Include the media.js file into your client HTML page and look at the index.html file for how to record audio from your web browser to send to a server.
 
 # Usage
 In your index.html file, create your recording buttons including the audio feedback visualization and the upload progress elements.
