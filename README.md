@@ -5,7 +5,7 @@ Recorder.js is no maintained by the creator and web browsers have implemented bu
 
 Include the media.js file into your client HTML page and looks at the index.html file for how to record audio from your web browser to send to a server.
 
-# usage
+# Usage
 In your index.html file, create your recording buttons including the audio feedback visualization and the upload progress elements.
 
 ```
@@ -42,5 +42,5 @@ In the same index.html file, create the mediaManager and button even listeners.
 			stop.disabled = true;
 		});
 ```
-# try it out
+# Try it out
 Download index.html and media.js to the same folder and give it a try!
