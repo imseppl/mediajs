@@ -1,5 +1,5 @@
 // usage
-// var mediaManager = new MediaManager("filename.ogg", "store/wav/nomsg", "filedata", audioVis, uploadProg);
+// var mediaManager = new MediaManager("filename.ogg", "https://breve.me/upload", "filedata", audioVis, uploadProg);
 // mediaManager.startRecording();
 // mediaManager.stopRecording();
 //
@@ -9,13 +9,14 @@ let mediaRecorder;
 let audioFileName;
 let urlToSave;
 let formDataName;
+let audioStream;
 //visuals
 let audioCtx;
 let canvasCtx;
 let canvas;
 let progressBar;
 
-//saveUrl: store/wav/nomsg or audio
+//saveUrl: breve/store/wav/nomsg or breve/audio
 //formDataName: filedata (save data) or audiodata (message)
 //audioFileName: getRandomString(8) + '.ogg'
 var MediaManager = function (audioFile, urlSave, dataName, audioCanvasObj, progressObj) {
@@ -58,6 +59,7 @@ MediaManager.prototype.startRecording = function () {
 		const constraints = { audio: true };
 
 		let onSuccess = function(stream) {
+			audioStream = stream;
 			if(canvas != null){
 				canvas.style.display = "block";
 			}
@@ -73,7 +75,9 @@ MediaManager.prototype.startRecording = function () {
 			
 			mediaRecorder.onstop = function(e) {
 				console.log("mediaRecorder stopped.");
-				canvas.style.display = "none";
+				if(canvas != null){
+					canvas.style.display = "none";
+				}
 				const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
 		  
 				//upload blob
@@ -82,14 +86,18 @@ MediaManager.prototype.startRecording = function () {
 			
 				xhr.addEventListener('progress', function(e) {
 					if (e.lengthComputable) {
-						progressBar.value = e.loaded;
-						progressBar.max = e.total;
+						if(progressBar != null){
+							progressBar.value = e.loaded;
+							progressBar.max = e.total;
+						}
 					}
 				} , false);
 
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState === 4) {
-						progressBar.style.display = "none";
+						if(progressBar != null){
+							progressBar.style.display = "none";
+						}
 					}
 				}
 				
@@ -100,8 +108,15 @@ MediaManager.prototype.startRecording = function () {
 				xhr.send(fd);
 
 				chunks = [];
+				
+				if (audioStream) {
+					//stop the audio stream
+					audioStream.getTracks().forEach(function (track) {
+						track.stop();
+					});
+				}
 				console.log("recorder stopped");
-
+				
 			}
 
 			mediaRecorder.ondataavailable = function(e) {
@@ -122,8 +137,23 @@ MediaManager.prototype.startRecording = function () {
     return;
 };
 
+//stops the recording and sends it to the server
 MediaManager.prototype.stopRecording = function () {
-	mediaRecorder.stop();
+	if(mediaRecorder){
+		mediaRecorder.stop();
+	}
+	else{
+		console.log("Stop recording: media recorder is null");
+	}
+};
+
+MediaManager.prototype.stopAudioStream = function () {
+	if (audioStream) {
+		//stop the audio stream
+		audioStream.getTracks().forEach(function (track) {
+			track.stop();
+		});
+	}
 };
 
 function visualize(stream) {
