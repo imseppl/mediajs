@@ -61,5 +61,15 @@ AudioVisual: The HTML canvas object for the sound levels visual
 
 UploadProg: The HTML progress object for the upload progress
 
+# Server Side
+
+On the nodejs server using express, you would create a POST function as follows
+
+```
+app.post('/breve/store', upload.single('filedata'), function (req, res, next) {
+	//do some work to upload the file
+});
+```
+
 # Try it out
 Download index.html and media.js to the same folder and give it a try!
