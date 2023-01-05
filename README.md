@@ -36,7 +36,7 @@ In the same index.html file, create the mediaManager and button even listeners.
 	});
 		
 	stop.addEventListener('click', () => {
-		mediaManager.stopRecording();
+		mediaManager.stopRecording(); //Stops the recording and sends it to the server. Use stopAudioStream to stop the audio stream without uploading to the server.
 		record.disabled = false;
 		stop.disabled = true;
 	});
