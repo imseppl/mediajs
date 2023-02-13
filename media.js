@@ -84,7 +84,7 @@ MediaManager.prototype.startRecording = function () {
 				const audioURL = window.URL.createObjectURL(blob);
 				let xhr = new XMLHttpRequest();
 			
-				xhr.addEventListener('progress', function(e) {
+				xhr.upload.addEventListener('progress', function(e) {
 					if (e.lengthComputable) {
 						if(progressBar != null){
 							progressBar.value = e.loaded;
